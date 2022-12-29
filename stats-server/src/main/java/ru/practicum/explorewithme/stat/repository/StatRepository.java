@@ -14,6 +14,6 @@ public interface StatRepository extends JpaRepository<EndpointHit, Long> {
             "AND eh.uri IN :uris")
     List<EndpointHit> findAll(LocalDateTime startDateTime, LocalDateTime endDateTime, List<String> uris);
 
-    @Query("SELECT COUNT(eh.app) FROM EndpointHit WHERE eh.app = :appName AS eh GROUP BY eh.app")
+    @Query("SELECT COUNT(eh.app) FROM EndpointHit AS eh WHERE eh.app = :appName GROUP BY eh.app")
     Long countByApp(String appName);
 }
