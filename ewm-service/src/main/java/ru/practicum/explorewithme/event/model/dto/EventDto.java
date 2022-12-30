@@ -19,7 +19,7 @@ public class EventDto {
 
     private CategoryDto category;
 
-    private Integer confirmedRequests;
+    private int confirmedRequests;
 
     private String createdOn;
 
@@ -33,7 +33,7 @@ public class EventDto {
 
     private Boolean paid;
 
-    private Integer participantLimit;
+    private int participantLimit;
 
     private String publishedOn;
 
@@ -43,5 +43,5 @@ public class EventDto {
 
     private String title;
 
-    private Integer views;
+    private int views;
 }

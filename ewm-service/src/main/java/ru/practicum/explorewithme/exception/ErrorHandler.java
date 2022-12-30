@@ -204,9 +204,11 @@ public class ErrorHandler {
     @ExceptionHandler
     public ResponseEntity<Map<String, String>> handleThrowable(Throwable throwable) {
         log.info(throwable.getMessage());
+        throwable.printStackTrace();
         return new ResponseEntity<>(
                 Map.of(
                         "message", throwable.getMessage(),
+                        "reason", throwable.getLocalizedMessage(),
                         "status", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
                         "timestamp", LocalDateTime.now().toString()
                 ),

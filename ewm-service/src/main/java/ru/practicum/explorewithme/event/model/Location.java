@@ -8,6 +8,6 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class Location implements Serializable {
-    private Float lat;
-    private Float lon;
+    private float lat;
+    private float lon;
 }

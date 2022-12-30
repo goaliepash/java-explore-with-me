@@ -32,7 +32,7 @@ public class Event implements Serializable {
     private Category category;
 
     @Column(name = "confirmed_requests")
-    private Integer confirmedRequests;
+    private int confirmedRequests;
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
@@ -70,7 +70,7 @@ public class Event implements Serializable {
     private String title;
 
     @Column
-    private Integer views;
+    private int views;
 
     @Override
     public boolean equals(Object o) {
