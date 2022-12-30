@@ -24,6 +24,7 @@ public class StatServiceImpl implements StatService {
 
     private final StatRepository statRepository;
 
+    @Transactional
     @Override
     public EndpointHitDto create(EndpointHitDto endpointHitDto) {
         EndpointHit endpointHit = EndpointHitMapper.fromEndpointHitDto(endpointHitDto);
