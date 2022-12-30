@@ -55,6 +55,7 @@ public class EventPublicServiceImpl implements EventPublicService {
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
+                .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
         eventClient.addHit(endPointHitDto);
         return eventRepository
@@ -72,6 +73,7 @@ public class EventPublicServiceImpl implements EventPublicService {
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
+                .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
         eventClient.addHit(endPointHitDto);
         return EventMapper.toEventDto(eventRepository.getReferenceById(eventId));
