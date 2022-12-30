@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Columns;
 import ru.practicum.explorewithme.category.model.Category;
-import ru.practicum.explorewithme.compilation.model.Compilation;
 import ru.practicum.explorewithme.user.model.User;
 
 import javax.persistence.*;
@@ -72,10 +71,6 @@ public class Event implements Serializable {
 
     @Column
     private Integer views;
-
-    @ManyToOne
-    @JoinColumn(name = "compilation_id")
-    private Compilation compilation;
 
     @Override
     public boolean equals(Object o) {
