@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.explorewithme.constraint_group.Create;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,5 +21,5 @@ public class CompilationRequestDto {
     @NotNull(groups = {Create.class})
     private String title;
 
-    private Set<Long> events;
+    private List<Long> events;
 }

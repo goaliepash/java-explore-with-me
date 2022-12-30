@@ -6,7 +6,6 @@ import ru.practicum.explorewithme.compilation.model.Compilation;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.model.dto.EventMapper;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,7 @@ public class CompilationMapper {
         compilation.setId(compilationRequestDto.getId());
         compilation.setPinned(compilationRequestDto.getPinned());
         compilation.setTitle(compilationRequestDto.getTitle());
-        compilation.setEvents(new HashSet<>(compilationEvents));
+        compilation.setEvents(compilationEvents);
         return compilation;
     }
 
@@ -27,7 +26,7 @@ public class CompilationMapper {
         compilation.setId(compilationDto.getId());
         compilation.setPinned(compilationDto.getPinned());
         compilation.setTitle(compilationDto.getTitle());
-        compilation.setEvents(compilationDto.getEvents().stream().map(EventMapper::fromEventDto).collect(Collectors.toSet()));
+        compilation.setEvents(compilationDto.getEvents().stream().map(EventMapper::fromEventDto).collect(Collectors.toList()));
         return compilation;
     }
 
@@ -36,7 +35,7 @@ public class CompilationMapper {
         compilationDto.setId(compilation.getId());
         compilationDto.setPinned(compilation.getPinned());
         compilationDto.setTitle(compilation.getTitle());
-        compilationDto.setEvents(compilation.getEvents().stream().map(EventMapper::toEventDto).collect(Collectors.toSet()));
+        compilationDto.setEvents(compilation.getEvents().stream().map(EventMapper::toEventDto).collect(Collectors.toList()));
         return compilationDto;
     }
 }

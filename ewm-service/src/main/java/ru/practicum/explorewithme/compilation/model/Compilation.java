@@ -8,8 +8,8 @@ import ru.practicum.explorewithme.event.model.Event;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Table(name = "compilations", schema = "public")
 @Entity
@@ -29,7 +29,7 @@ public class Compilation implements Serializable {
     private String title;
 
     @ManyToMany
-    private Set<Event> events;
+    private List<Event> events;
 
     @Override
     public boolean equals(Object o) {

@@ -16,7 +16,6 @@ import ru.practicum.explorewithme.exception.compilation.CompilationNotFoundExcep
 import ru.practicum.explorewithme.exception.event.EventNotFoundException;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +47,11 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
         checkIfEventExist(eventId);
         Compilation compilation = compilationRepository.getReferenceById(compId);
         checkIfCompilationContainsEvent(compilation, eventId);
-        Set<Event> events = compilation
+        List<Event> events = compilation
                 .getEvents()
                 .stream()
                 .filter(event -> event.getId() != eventId)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
         compilation.setEvents(events);
         compilationRepository.save(compilation);
     }

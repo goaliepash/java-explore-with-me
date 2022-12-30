@@ -16,8 +16,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "AND (:text IS NULL OR e.annotation LIKE %:text% OR e.description LIKE %:text%) " +
             "AND (:categories IS NULL OR e.category.id IN :categories) " +
             "AND (:paid IS NULL OR e.paid = :paid) " +
-            "AND (:rangeStart IS NULL OR e.eventDate >= :rangeStart) " +
-            "AND (:rangeEnd IS NULL OR e.eventDate <= :rangeEnd) " +
+            "AND (CAST(:rangeStart AS date) IS NULL OR e.eventDate >= CAST(:rangeStart AS date)) " +
+            "AND (CAST(:rangeEnd AS date) IS NULL OR e.eventDate <= CAST(:rangeEnd AS date)) " +
             "AND (:onlyAvailable = FALSE OR e.confirmedRequests < e.participantLimit)"
     )
     List<Event> findAll(
@@ -37,8 +37,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM Event AS e WHERE (:users IS NULL OR e.initiator.id IN :users) " +
             "AND (:states IS NULL OR e.state IN :states)" +
             "AND (:categories IS NULL OR e.category.id IN :categories) " +
-            "AND (:start IS NULL OR e.eventDate >= :start) " +
-            "AND (:end IS NULL OR e.eventDate <= :end)")
+            "AND (CAST(:start AS date) IS NULL OR e.eventDate >= CAST(:start AS date)) " +
+            "AND (CAST(:end AS date) IS NULL OR e.eventDate <= CAST(:end AS date))")
     List<Event> findAll(
             List<Long> users,
             List<EventState> states,
