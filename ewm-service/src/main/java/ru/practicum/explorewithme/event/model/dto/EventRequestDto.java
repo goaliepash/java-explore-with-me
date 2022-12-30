@@ -34,7 +34,7 @@ public class EventRequestDto {
     @NotNull(groups = {Create.class})
     private Boolean paid;
 
-    private int participantLimit;
+    private Integer participantLimit;
 
     private Boolean requestModeration;
 
