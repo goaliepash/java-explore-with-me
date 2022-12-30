@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.explorewithme.category.controller.CategoryAdminController;
@@ -25,7 +26,9 @@ import ru.practicum.explorewithme.exception.user.UserNotFoundException;
 import ru.practicum.explorewithme.request.controller.RequestPrivateController;
 import ru.practicum.explorewithme.user.controller.UserAdminController;
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RestControllerAdvice(assignableTypes = {
@@ -41,63 +44,135 @@ import java.util.Map;
 public class ErrorHandler {
 
     @ExceptionHandler
+    private ResponseEntity<Map<String, String>> handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
+        log.info(exception.getMessage());
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", Objects.requireNonNull(exception.getMessage()),
+                        "status", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler
     private ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(Map.of("status", HttpStatus.BAD_REQUEST.getReasonPhrase()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleEventBadRequestException(EventBadRequestException exception) {
+    public ResponseEntity<Map<String, String>> handleEventBadRequestException(EventBadRequestException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleCompilationBadRequestException(CompilationBadRequestException exception) {
+    public ResponseEntity<Map<String, String>> handleCompilationBadRequestException(CompilationBadRequestException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleEventForbiddenException(EventForbiddenException exception) {
+    public ResponseEntity<Map<String, String>> handleEventForbiddenException(EventForbiddenException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.FORBIDDEN.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.FORBIDDEN
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleCategoryNotFoundException(CategoryNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(CategoryNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleUserNotFoundException(UserNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleEventNotFoundException(EventNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleEventNotFoundException(EventNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleEventStateNotFoundException(EventStateNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleEventStateNotFoundException(EventStateNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleRequestNotFoundException(RequestNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleRequestNotFoundException(RequestNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleCompilationNotFoundException(CompilationNotFoundException exception) {
+    public ResponseEntity<Map<String, String>> handleCompilationNotFoundException(CompilationNotFoundException exception) {
         log.info(exception.getMessage());
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
     }
 
     @ExceptionHandler
@@ -106,7 +181,8 @@ public class ErrorHandler {
         return new ResponseEntity<>(
                 Map.of(
                         "message", exception.getMessage(),
-                        "status", HttpStatus.CONFLICT.getReasonPhrase()
+                        "status", HttpStatus.CONFLICT.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()
                 ),
                 HttpStatus.CONFLICT
         );
@@ -118,9 +194,23 @@ public class ErrorHandler {
         return new ResponseEntity<>(
                 Map.of(
                         "message", exception.getMessage(),
-                        "status", HttpStatus.CONFLICT.getReasonPhrase()
+                        "status", HttpStatus.CONFLICT.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()
                 ),
                 HttpStatus.CONFLICT
+        );
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Map<String, String>> handleThrowable(Throwable throwable) {
+        log.info(throwable.getMessage());
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", throwable.getMessage(),
+                        "status", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()
+                ),
+                HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
 }
