@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventAdminController {
 
-    private final EventAdminService service;
+    private final EventAdminService eventAdminService;
 
     @GetMapping
     public List<EventDto> get(
@@ -37,24 +37,24 @@ public class EventAdminController {
                 from,
                 size
         );
-        return service.get(users, states, categories, rangeStart, rangeEnd, from, size);
+        return eventAdminService.get(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PutMapping("/{eventId}")
     public EventDto update(@PathVariable long eventId, @RequestBody EventRequestDto eventRequestDto) {
         log.info("Выполнен запрос PUT /admin/events/{}", eventId);
-        return service.update(eventId, eventRequestDto);
+        return eventAdminService.update(eventId, eventRequestDto);
     }
 
     @PatchMapping("/{eventId}/publish")
     public EventDto publish(@PathVariable long eventId) {
         log.info("Выполнен запрос PATCH /admin/events/{}/publish", eventId);
-        return service.publish(eventId);
+        return eventAdminService.publish(eventId);
     }
 
     @PatchMapping("/{eventId}/reject")
     public EventDto reject(@PathVariable long eventId) {
         log.info("Выполнен запрос PATCH /admin/events/{}/reject", eventId);
-        return service.reject(eventId);
+        return eventAdminService.reject(eventId);
     }
 }

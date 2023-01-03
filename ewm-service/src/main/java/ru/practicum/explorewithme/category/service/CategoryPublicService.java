@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface CategoryPublicService {
 
-
     List<CategoryDto> get(int from, int size);
 
     CategoryDto getById(long catId);

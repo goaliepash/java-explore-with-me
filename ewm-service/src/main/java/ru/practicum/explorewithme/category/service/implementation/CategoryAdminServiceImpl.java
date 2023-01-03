@@ -20,7 +20,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     @Transactional
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
-        checkIfCategoryNameExists(categoryDto.getName());
+        checkCategoryNameExists(categoryDto.getName());
         Category category = CategoryMapper.fromCategoryDto(categoryDto);
         return CategoryMapper.toCategoryDto(categoryRepository.save(category));
     }
@@ -28,7 +28,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     @Transactional
     @Override
     public CategoryDto update(CategoryDto categoryDto) {
-        checkIfCategoryNameExists(categoryDto.getName());
+        checkCategoryNameExists(categoryDto.getName());
         Category category = categoryRepository.getReferenceById(categoryDto.getId());
         category.setName(categoryDto.getName());
         return CategoryMapper.toCategoryDto(category);
@@ -40,7 +40,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
         categoryRepository.deleteById(catId);
     }
 
-    private void checkIfCategoryNameExists(String name) {
+    private void checkCategoryNameExists(String name) {
         if (!categoryRepository.findAllByName(name).isEmpty()) {
             throw new CategoryConflictException("Имя категории должно быть уникальным.");
         }

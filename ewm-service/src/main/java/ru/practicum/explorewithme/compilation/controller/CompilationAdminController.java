@@ -15,41 +15,41 @@ import ru.practicum.explorewithme.constraint_group.Create;
 @RequiredArgsConstructor
 public class CompilationAdminController {
 
-    private final CompilationAdminService service;
+    private final CompilationAdminService compilationAdminService;
 
     @PostMapping
     public CompilationDto create(@Validated(Create.class) @RequestBody CompilationRequestDto compilationRequestDto) {
         log.info("Выполнен запрос POST /admin/compilations.");
-        return service.create(compilationRequestDto);
+        return compilationAdminService.create(compilationRequestDto);
     }
 
     @DeleteMapping("/{compId}")
     public void delete(@PathVariable long compId) {
         log.info("Выполнен запрос DELETE /admin/compilations/{}.", compId);
-        service.delete(compId);
+        compilationAdminService.delete(compId);
     }
 
     @DeleteMapping("/{compId}/events/{eventId}")
     public void delete(@PathVariable long compId, @PathVariable long eventId) {
         log.info("Выполнен запрос DELETE /admin/compilations/{}/events/{}.", compId, eventId);
-        service.delete(compId, eventId);
+        compilationAdminService.delete(compId, eventId);
     }
 
     @PatchMapping("/{compId}/events/{eventId}")
     public void addEvent(@PathVariable long compId, @PathVariable long eventId) {
         log.info("Выполнен запрос PATCH /admin/compilations/{}/events/{}.", compId, eventId);
-        service.addEvent(compId, eventId);
+        compilationAdminService.addEvent(compId, eventId);
     }
 
     @DeleteMapping("/{compId}/pin")
     public void unpin(@PathVariable long compId) {
         log.info("Выполнен запрос DELETE /admin/compilations/{}/pin.", compId);
-        service.unpin(compId);
+        compilationAdminService.unpin(compId);
     }
 
     @PatchMapping("/{compId}/pin")
     public void pin(@PathVariable long compId) {
         log.info("Выполнен запрос PATCH /admin/compilations/{}/pin.", compId);
-        service.pin(compId);
+        compilationAdminService.pin(compId);
     }
 }

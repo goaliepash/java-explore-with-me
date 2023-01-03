@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventPublicController {
 
-    private final EventPublicService service;
+    private final EventPublicService eventPublicService;
 
     @GetMapping
     public List<EventDto> get(
@@ -34,12 +34,12 @@ public class EventPublicController {
                 "Выполнен запрос GET /events?text={}&categories={}&paid={}&rangeStart={}&rangeEnd={}&onlyAvailable={}&sort={}&from={}&size={}.",
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size
         );
-        return service.get(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
+        return eventPublicService.get(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
     }
 
     @GetMapping("/{eventId}")
     public EventDto get(@PathVariable long eventId, HttpServletRequest request) {
         log.info("Выполнен запрос GET /events/{}.", eventId);
-        return service.get(eventId, request);
+        return eventPublicService.get(eventId, request);
     }
 }

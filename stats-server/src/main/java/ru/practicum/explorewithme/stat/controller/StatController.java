@@ -14,12 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatController {
 
-    private final StatService service;
+    private final StatService statService;
 
     @PostMapping("/hit")
     public EndpointHitDto create(@RequestBody EndpointHitDto endpointHitDto) {
         log.info("Выполнен запрос POST /hit.");
-        return service.create(endpointHitDto);
+        return statService.create(endpointHitDto);
     }
 
     @GetMapping("/stats")
@@ -30,6 +30,6 @@ public class StatController {
             @RequestParam(required = false, defaultValue = "false") boolean unique
     ) {
         log.info("Выполнен запрос GET /stats?start={}&end={}&uris={}&unique={}.", start, end, uris, unique);
-        return service.get(start, end, uris, unique);
+        return statService.get(start, end, uris, unique);
     }
 }

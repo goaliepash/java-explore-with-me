@@ -16,23 +16,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserAdminController {
 
-    private final UserAdminService service;
+    private final UserAdminService userAdminService;
 
     @GetMapping
     public List<UserDto> get(@RequestParam(required = false) List<Long> ids) {
         log.info("Выполнен запрос GET /admin/users?ids={}", ids);
-        return service.getByIds(ids);
+        return userAdminService.getByIds(ids);
     }
 
     @PostMapping
     public UserDto create(@Validated(Create.class) @RequestBody UserDto userDto) {
         log.info("Выполнен запрос POST /admin/users.");
-        return service.create(userDto);
+        return userAdminService.create(userDto);
     }
 
     @DeleteMapping("/{userId}")
     public void delete(@PathVariable long userId) {
         log.info("Выполнен запрос DELETE /admin/users/{}.", userId);
-        service.delete(userId);
+        userAdminService.delete(userId);
     }
 }

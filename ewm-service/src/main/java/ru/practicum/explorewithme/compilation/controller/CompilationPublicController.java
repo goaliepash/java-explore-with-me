@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompilationPublicController {
 
-    private final CompilationPublicService service;
+    private final CompilationPublicService compilationPublicService;
 
     @GetMapping
     public List<CompilationDto> get(
@@ -23,12 +23,12 @@ public class CompilationPublicController {
             @RequestParam(name = "size", required = false, defaultValue = "10") int size
     ) {
         log.info("Выполнен запрос GET /compilations?pinned={}&from={}&size={}.", pinned, from, size);
-        return service.get(pinned, from, size);
+        return compilationPublicService.get(pinned, from, size);
     }
 
     @GetMapping("/{compId}")
     public CompilationDto get(@PathVariable long compId) {
         log.info("Выполнен запрос GET /compilations/{}.", compId);
-        return service.get(compId);
+        return compilationPublicService.get(compId);
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryPublicController {
 
-    private final CategoryPublicService service;
+    private final CategoryPublicService categoryPublicService;
 
     @GetMapping
     public List<CategoryDto> get(
@@ -24,12 +24,12 @@ public class CategoryPublicController {
             @Positive @RequestParam(name = "size", required = false, defaultValue = "10") int size
     ) {
         log.info("Выполнен запрос GET /categories?from={}&size={}", from, size);
-        return service.get(from, size);
+        return categoryPublicService.get(from, size);
     }
 
     @GetMapping("/{catId}")
     public CategoryDto getById(@PathVariable long catId) {
         log.info("Выполнен запрос GET /categories/{catId}.");
-        return service.getById(catId);
+        return categoryPublicService.getById(catId);
     }
 }

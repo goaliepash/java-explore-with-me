@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventPrivateController {
 
-    private final EventPrivateService service;
+    private final EventPrivateService eventPrivateService;
 
     @GetMapping
     public List<EventDto> get(
@@ -28,48 +28,48 @@ public class EventPrivateController {
             @RequestParam(name = "size", required = false, defaultValue = "10") int size
     ) {
         log.info("Выполнен запрос GET /users/{}/events?from={}&size={}.", userId, from, size);
-        return service.get(userId, from, size);
+        return eventPrivateService.get(userId, from, size);
     }
 
     @PatchMapping
     public EventDto update(@PathVariable long userId, @Validated(Update.class) @RequestBody EventRequestDto eventRequestDto) {
         log.info("Выполнен запрос PATCH /users/{}/events.", userId);
-        return service.update(userId, eventRequestDto);
+        return eventPrivateService.update(userId, eventRequestDto);
     }
 
     @PostMapping
     public EventDto create(@PathVariable long userId, @Validated(Create.class) @RequestBody EventRequestDto eventRequestDto) {
         log.info("Выполнен запрос POST /users/{}/events.", userId);
-        return service.create(userId, eventRequestDto);
+        return eventPrivateService.create(userId, eventRequestDto);
     }
 
     @GetMapping("/{eventId}")
     public EventDto get(@PathVariable long userId, @PathVariable long eventId) {
         log.info("Выполнен запрос GET /users/{}/events/{}.", userId, eventId);
-        return service.get(userId, eventId);
+        return eventPrivateService.get(userId, eventId);
     }
 
     @PatchMapping("/{eventId}")
     public EventDto cancel(@PathVariable long userId, @PathVariable long eventId) {
         log.info("Выполнен запрос PATCH /users/{}/events/{}.", userId, eventId);
-        return service.cancel(userId, eventId);
+        return eventPrivateService.cancel(userId, eventId);
     }
 
     @GetMapping("/{eventId}/requests")
     public List<RequestDto> getEventRequests(@PathVariable long userId, @PathVariable long eventId) {
         log.info("Выполнен запрос GET /users/{}/events/{}/requests.", userId, eventId);
-        return service.getEventRequests(userId, eventId);
+        return eventPrivateService.getEventRequests(userId, eventId);
     }
 
     @PatchMapping("{eventId}/requests/{reqId}/confirm")
     public RequestDto confirmRequest(@PathVariable long userId, @PathVariable long eventId, @PathVariable long reqId) {
         log.info("Выполнен запрос PATCH /users/{}/events/{}/requests/{}/confirm.", userId, eventId, reqId);
-        return service.confirmRequest(userId, eventId, reqId);
+        return eventPrivateService.confirmRequest(userId, eventId, reqId);
     }
 
     @PatchMapping("{eventId}/requests/{reqId}/reject")
     public RequestDto rejectRequest(@PathVariable long userId, @PathVariable long eventId, @PathVariable long reqId) {
         log.info("Выполнен запрос PATCH /users/{}/events/{}/requests/{}/reject.", userId, eventId, reqId);
-        return service.rejectRequest(userId, eventId, reqId);
+        return eventPrivateService.rejectRequest(userId, eventId, reqId);
     }
 }
