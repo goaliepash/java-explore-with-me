@@ -14,6 +14,7 @@ import ru.practicum.explorewithme.event.controller.EventAdminController;
 import ru.practicum.explorewithme.event.controller.EventPrivateController;
 import ru.practicum.explorewithme.exception.category.CategoryConflictException;
 import ru.practicum.explorewithme.exception.category.CategoryNotFoundException;
+import ru.practicum.explorewithme.exception.comment.CommentNotFoundException;
 import ru.practicum.explorewithme.exception.compilation.CompilationBadRequestException;
 import ru.practicum.explorewithme.exception.compilation.CompilationNotFoundException;
 import ru.practicum.explorewithme.exception.event.EventBadRequestException;
@@ -165,6 +166,18 @@ public class ErrorHandler {
 
     @ExceptionHandler
     public ResponseEntity<Map<String, String>> handleCompilationNotFoundException(CompilationNotFoundException exception) {
+        log.info(exception.getMessage());
+        return new ResponseEntity<>(
+                Map.of(
+                        "message", exception.getMessage(),
+                        "status", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "timestamp", LocalDateTime.now().toString()),
+                HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Map<String, String>> handleCommentNotFoundException(CommentNotFoundException exception) {
         log.info(exception.getMessage());
         return new ResponseEntity<>(
                 Map.of(

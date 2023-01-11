@@ -11,6 +11,7 @@ import ru.practicum.explorewithme.comment.repository.CommentRepository;
 import ru.practicum.explorewithme.comment.service.CommentPrivateService;
 import ru.practicum.explorewithme.event.model.Event;
 import ru.practicum.explorewithme.event.repository.EventRepository;
+import ru.practicum.explorewithme.exception.comment.CommentNotFoundException;
 import ru.practicum.explorewithme.exception.event.EventNotFoundException;
 import ru.practicum.explorewithme.exception.user.UserNotFoundException;
 import ru.practicum.explorewithme.user.model.User;
@@ -44,6 +45,17 @@ public class CommentPrivateServiceImpl implements CommentPrivateService {
 
     @Transactional
     @Override
+    public CommentDto update(long userId, long eventId, long commentId, CommentRequestDto commentRequestDto) {
+        checkUserExists(userId);
+        checkEventExists(eventId);
+        checkCommentExists(commentId);
+        Comment comment = commentRepository.getReferenceById(commentId);
+        comment.setText(commentRequestDto.getText());
+        return CommentMapper.toCommentDto(comment);
+    }
+
+    @Transactional
+    @Override
     public void delete(long userId, long eventId, long commentId) {
         checkUserExists(userId);
         checkEventExists(eventId);
@@ -59,6 +71,12 @@ public class CommentPrivateServiceImpl implements CommentPrivateService {
     private void checkEventExists(long eventId) {
         if (!eventRepository.existsById(eventId)) {
             throw new EventNotFoundException(String.format("Событие с идентификатором %d не найден.", eventId));
+        }
+    }
+
+    private void checkCommentExists(long commentId) {
+        if (!commentRepository.existsById(commentId)) {
+            throw new CommentNotFoundException(String.format("Комментарий с идентификатором %d не найден.", commentId));
         }
     }
 }
